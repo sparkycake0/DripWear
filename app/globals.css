@@ -2,20 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+    word-wrap: break-word;
+    text-wrap: wrap;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+    scrollbar-width: none;
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+*::-webkit-scrollbar {
+    display: none;
+}
+.container {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
 }

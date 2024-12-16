@@ -1,0 +1,6 @@
+.text-input {
+    @apply rounded-md p-1 bg-neutral-900 text-white border-2 border-neutral-600 focus:border-white outline-none focus:outline-none appearance-none;
+}
+.submit-button {
+    @apply p-2 font-bold rounded-lg bg-neutral-800 hover:bg-neutral-900 transition-colors duration-150;
+}
