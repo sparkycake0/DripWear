@@ -3,7 +3,7 @@ import { Nunito } from "next/font/google";
 import UserCheck from "./components/UserChecking";
 import Navbar from "./components/Navbar";
 const font = Nunito({
-  weight: ["600", "700"],
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 export const metadata = {
