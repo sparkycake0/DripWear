@@ -7,6 +7,7 @@ export default function Home() {
         <h1 className="font-bold text-5xl text-center">
           Dobro dosli na <span className="text-white">DripWear.</span>
         </h1>
+
         <h1 className="pt-8 text-2xl text-center px-4">
           Ovde mozete poruciti vase zeljene proizvode po vrlo priustivim cenama!
         </h1>
@@ -40,7 +41,7 @@ export default function Home() {
           href={"/collections/vapes"}
           className="hover:text-white transition-colors duration-150"
         >
-          <h1>Vejpovi/Puffovi</h1>
+          <h1>Vejpovi/Pafovi</h1>
         </Link>
         <Link
           href={"/collections/others"}

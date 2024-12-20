@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { ordersRef } from "../db/firebase"; // Ensure this is correctly imported from your Firebase setup
-import { getDocs } from "firebase/firestore";
+import { firestore, ordersRef } from "../db/firebase"; // Ensure this is correctly imported from your Firebase setup
+import { getDocs, deleteDoc, doc } from "firebase/firestore";
 
 export default function OrdersList() {
   const [orders, setOrders] = useState([]);
@@ -13,15 +13,21 @@ export default function OrdersList() {
         ...doc.data(),
       }));
       setOrders(fetchedOrders);
-      console.log(fetchedOrders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }
   };
-
+  const deleteOrder = async (id) => {
+    try {
+      const order = doc(ordersRef.firestore, ordersRef.path, id);
+      deleteDoc(order);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     fetchOrders();
-  }, []);
+  }, [orders]);
 
   return (
     <main className="w-screen h-screen flex flex-col gap-4 pt-8 lg:w-7/12 self-center">
@@ -41,24 +47,40 @@ export default function OrdersList() {
               key={order.id}
               className="flex flex-col w-full bg-neutral-900 h-max"
             >
-              <div className="p-2 flex *:h-max *:w-1/6 *:text-wrap *:text-center w-full items-center justify-between">
-                <h1>{order.id}</h1>
-                <h1>{order.name}</h1>
-                <h1>{order.email}</h1>
-                <h1>{order.address}</h1>
-                <h1>{order.phone}</h1>
+              <div className="flex bg-neutral-800 *:text-wrap *:text-center w-full items-center justify-between">
+                <h1 className="border-2 p-2 size-full">{order.id}</h1>
+                <h1 className="border-b-2 border-r-2 border-t-2 p-2 size-full">
+                  {order.name}
+                </h1>
+                <h1 className="border-b-2 border-r-2 border-t-2 p-2 size-full">
+                  {order.email}
+                </h1>
+                <h1 className="border-b-2 border-r-2 border-t-2 p-2 size-full">
+                  {order.address}
+                </h1>
+                <h1 className="border-b-2 border-r-2 border-t-2 p-2 size-full">
+                  {order.phone}
+                </h1>
               </div>
-              <div className="flex flex-col gap-1 mt-8">
+              <div className="flex flex-col">
                 {order.cartData.map((product, index) => (
                   <div
                     key={`${product.price}-${index}`}
                     className="flex *:w-1/5 *:text-center items-center"
                   >
-                    <div>{index}</div>
-                    <div>{product.productName}</div>
-                    <div>{product.productPrice}</div>
-                    <div>{product.quantity}</div>
-                    <div>
+                    <div className="border-b-2 border-r-2 border-l-2 p-2 size-full">
+                      {index}
+                    </div>
+                    <div className="border-b-2 border-r-2 p-2 size-full">
+                      {product.productName}
+                    </div>
+                    <div className="border-b-2 border-r-2 p-2 size-full">
+                      {product.productPrice}
+                    </div>
+                    <div className="border-b-2 border-r-2 p-2 size-full">
+                      {product.quantity}
+                    </div>
+                    <div className="border-b-2 border-r-2 p-2 size-full">
                       {product.productSize === ""
                         ? "Ne treba velicina"
                         : product.productSize}
@@ -66,6 +88,14 @@ export default function OrdersList() {
                   </div>
                 ))}
               </div>
+              <button
+                className="mt-8 bg-red-500 text-black p-2 rounded-lg w-max self-center mb-4"
+                onClick={() => {
+                  deleteOrder(order.id);
+                }}
+              >
+                Delete
+              </button>
             </div>
           ))
         ) : (

@@ -2,6 +2,7 @@ import "./globals.css";
 import { Nunito } from "next/font/google";
 import UserCheck from "./components/UserChecking";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 const font = Nunito({
   weight: ["400", "700"],
   subsets: ["latin"],
@@ -15,11 +16,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${font.className} antialiased bg-neutral-950 text-white flex flex-col`}
+        className={`${font.className} antialiased bg-neutral-950 text-white flex flex-col w-screen h-screen`}
       >
         <UserCheck />
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "../assets/logo.png";
+
 import cart from "../assets/cart.png";
 import menuImg from "../assets/menu.svg";
 import dropdownImg from "../assets/dropdown.svg";
@@ -8,23 +8,28 @@ import Link from "next/link";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useState, useEffect } from "react";
 import { auth } from "../db/firebase";
-
+import { usePathname } from "next/navigation";
 export default function Navbar() {
   const [userPhoto, setUserPhoto] = useState(null);
   const [menu, setMenu] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [accountMenu, setAccountMenu] = useState(false);
+  const pathname = usePathname();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setUserPhoto(user.photoURL);
-      console.log(userPhoto);
+      if (user) {
+        setUserPhoto(user.photoURL);
+        console.log(userPhoto);
+      }
     });
-  }, []);
+  }, [userPhoto]);
   const logOut = () => {
     signOut(auth);
   };
   return (
-    <main className="flex w-full justify-between py-2 lg:py-4 px-8 lg:px-12 items-center z-50">
+    <main
+      className={` ${pathname !== "/login" ? "flex" : "hidden"} w-full justify-between py-2 lg:py-4 px-8 lg:px-12 items-center z-40`}
+    >
       <button onClick={() => setMenu(true)}>
         <Image src={menuImg} alt="" width={32} />
       </button>
@@ -153,7 +158,7 @@ export default function Navbar() {
             <img
               src={`${userPhoto}`}
               alt=""
-              className="w-6/12 border-2 rounded-full cursor-pointer"
+              className="w-6/12 rounded-full cursor-pointer"
               onClick={() => setAccountMenu(!accountMenu)}
             />
 
