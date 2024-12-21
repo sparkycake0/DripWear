@@ -63,24 +63,16 @@ export default function OrdersList() {
                 </h1>
               </div>
               <div className="flex flex-col">
-                {order.cartData.map((product, index) => (
+                {order.cartData?.map((product, index) => (
                   <div
                     key={`${product.price}-${index}`}
                     className="flex *:w-1/5 *:text-center items-center"
                   >
-                    <div className="border-b-2 border-r-2 border-l-2 p-2 size-full">
-                      {index}
-                    </div>
-                    <div className="border-b-2 border-r-2 p-2 size-full">
-                      {product.productName}
-                    </div>
-                    <div className="border-b-2 border-r-2 p-2 size-full">
-                      {product.productPrice}
-                    </div>
-                    <div className="border-b-2 border-r-2 p-2 size-full">
-                      {product.quantity}
-                    </div>
-                    <div className="border-b-2 border-r-2 p-2 size-full">
+                    <div className="p-2 size-full">{index}</div>
+                    <div className="p-2 size-full">{product.productName}</div>
+                    <div className="p-2 size-full">{product.productPrice}</div>
+                    <div className="p-2 size-full">{product.quantity}</div>
+                    <div className="p-2 size-full">
                       {product.productSize === ""
                         ? "Ne treba velicina"
                         : product.productSize}

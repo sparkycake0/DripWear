@@ -55,80 +55,79 @@ export default function All() {
     setFilteredProducts(filtered);
   }, [selectedType, selectedSizes, productsContainer, showDiscounted]);
   return (
-    <main className="w-screen h-screen flex flex-col p-4">
-      <div>
-        <div className="flex flex-col p-2 rounded-lg items-start gap-4 bg-neutral-900">
+    <main className="w-screen h-full flex flex-col items-center lg:flex-row lg:items-start p-4">
+      <div
+        className={`${filters ? "min-w-max" : ""} flex p-2 py-4 flex-col items-center lg:!self-start gap-4 bg-neutral-900`}
+      >
+        <div className="flex lg:flex-col justify-center items-center lg:items-start">
           <button
-            className="w-full text-center font-bold text-xl p-2 hover:bg-neutral-800 transition-all duration-150"
+            className="w-max flex items-center font-bold text-xl p-2 hover:bg-neutral-800 transition-all  duration-150"
             onClick={() => showFilters(!filters)}
           >
             Filter
           </button>
+          <div
+            className={`${filters ? "flex" : "hidden"}  p-2 h-full flex items-center lg:items-start lg:flex-col flex-row gap-6 `}
+          >
+            <div className="flex items-center">
+              <Checkbox
+                checked={showDiscounted}
+                onChange={(isChecked) => setShowDiscounted(isChecked)}
+              />
+              <span className="">Sniženje</span>
+            </div>
 
-          {filters && (
-            <div className="flex flex-col gap-4">
-              <div className="">
-                <select
-                  className="bg-neutral-800 p-2 rounded cursor-pointer outline-none transition-all hover:bg-neutral-700"
-                  value={selectedType}
-                  onChange={(e) => {
-                    setSelectedType(e.target.value);
-                    setSelectedSizes([]);
-                  }}
-                >
-                  <option value="">Prozivodi</option>
-                  <option value="shirts">Majice</option>
-                  <option value="sweatshirts">Dukserice</option>
-                  <option value="sets">Kompleti</option>
-                  <option value="pants">Donji Delovi</option>
-                  <option value="shoeses">Patike</option>
-                  <option value="vapes">Vejpovi</option>
-                  <option value="fragrance">Parfemi</option>
-                  <option value="headphones">Elektronika</option>
-                  <option value="others">Ostalo</option>
-                </select>
-              </div>
-
-              {(selectedType === "shirts" ||
-                selectedType === "shoeses" ||
-                selectedType === "sweatshirts" ||
-                selectedType === "jackets" ||
-                selectedType === "sets" ||
-                selectedType === "pants") && (
-                <div className="">
-                  <h2 className="">Size</h2>
-                  <div className="">
-                    {(selectedType === "shoeses"
-                      ? [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
-                      : ["S", "M", "L", "XL", "XXL"]
-                    ).map((size) => (
-                      <Checkbox
-                        key={size}
-                        size={size}
-                        checked={selectedSizes.includes(size)}
-                        onChange={(isChecked) => {
-                          const newSizes = isChecked
-                            ? [...selectedSizes, size]
-                            : selectedSizes.filter((s) => s !== size);
-                          setSelectedSizes(newSizes);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div className="flex items-center">
+            <select
+              className="bg-neutral-800 p-2 rounded cursor-pointer outline-none transition-all hover:bg-neutral-700"
+              value={selectedType}
+              onChange={(e) => {
+                setSelectedType(e.target.value);
+                setSelectedSizes([]);
+              }}
+            >
+              <option value="">Prozivodi</option>
+              <option value="shirts">Majice</option>
+              <option value="sweatshirts">Dukserice</option>
+              <option value="sets">Kompleti</option>
+              <option value="pants">Donji Delovi</option>
+              <option value="shoeses">Patike</option>
+              <option value="vapes">Vejpovi</option>
+              <option value="fragrance">Parfemi</option>
+              <option value="headphones">Elektronika</option>
+              <option value="others">Ostalo</option>
+            </select>
+          </div>{" "}
+        </div>
+        <div
+          className={` ${filters ? "flex" : "hidden"} self-start justify-center w-full`}
+        >
+          {(selectedType === "shirts" ||
+            selectedType === "shoeses" ||
+            selectedType === "sweatshirts" ||
+            selectedType === "jackets" ||
+            selectedType === "sets" ||
+            selectedType === "pants") && (
+            <div className="grid grid-cols-5 gap-4 lg:flex-col lg:flex">
+              {(selectedType === "shoeses"
+                ? [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
+                : ["S", "M", "L", "XL", "XXL"]
+              ).map((size) => (
                 <Checkbox
-                  checked={showDiscounted}
-                  onChange={(isChecked) => setShowDiscounted(isChecked)}
+                  key={size}
+                  size={size}
+                  checked={selectedSizes.includes(size)}
+                  onChange={(isChecked) => {
+                    const newSizes = isChecked
+                      ? [...selectedSizes, size]
+                      : selectedSizes.filter((s) => s !== size);
+                    setSelectedSizes(newSizes);
+                  }}
                 />
-                <span className="">Sniženje</span>
-              </div>
+              ))}
             </div>
           )}
         </div>
-      </div>{" "}
+      </div>
       <div className="grid w-11/12 h-max grid-cols-2 lg:grid-cols-8 gap-8 p-4">
         {filteredProducts.map((product, index) => (
           <Link

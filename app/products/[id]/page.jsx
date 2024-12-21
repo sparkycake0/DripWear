@@ -133,7 +133,7 @@ export default function ProductPage({ params }) {
   };
 
   return (
-    <main className="flex flex-col lg:flex-row w-screen h-screen gap-1.5 lg:justify-center lg:items-center lg:-mt-12">
+    <main className="flex flex-col lg:flex-row w-screen h-screen gap-1.5 lg:justify-center lg:items-center ">
       <div className="px-4 mt-2 lg:w-5/12">
         <img
           src={product.img}
@@ -141,7 +141,7 @@ export default function ProductPage({ params }) {
           className="rounded-lg border-4 border-neutral-700 w-full"
         />
       </div>
-      <div className="h-full lg:border-2 lg:h-4/6 flex flex-col items-center p-4 bg-neutral-950 rounded-lg">
+      <div className="h-full lg:border-2 lg:border-neutral-700 lg:h-4/6 flex flex-col items-center p-4 bg-neutral-950 rounded-lg">
         <div className="flex flex-col w-full justify-self-start">
           <div className=" flex flex-col gap-2 p-2 -mt-2">
             <h1 className="text-neutral-400">DripWear</h1>
@@ -207,50 +207,50 @@ export default function ProductPage({ params }) {
             </div>
           )}
           <div className="p-2 text-wrap w-96 pb-28">{product.description}</div>
-        </div>
-        <div className="w-full flex justify-center fixed bottom-4 left-0">
-          <button
-            onClick={() => {
-              if (
-                [
-                  "shirts",
-                  "sweatshirts",
-                  "sets",
-                  "pants",
-                  "shoeses",
-                  "jackets",
-                ].includes(product.type) &&
-                selectedSize !== ""
-              ) {
-                addToCart();
-                Timer();
-              }
-              if (
-                [
-                  "shirts",
-                  "sweatshirts",
-                  "sets",
-                  "pants",
-                  "shoeses",
-                  "jackets",
-                ].includes(product.type) &&
-                selectedSize === ""
-              ) {
-                setSizeCheck(true);
-                SizeTimer();
-              }
-              if (
-                ["fragrance", "vapes", "headphones"].includes(product.type) &&
-                selectedSize === ""
-              ) {
-                addToCart();
-                Timer();
-              }
-            }}
-            className={`text-center w-7/12 lg:w-2/12 flex justify-center items-center px-2 py-3 transition-all duration-150 text-xl ${added ? "bg-green-400 hover:bg-green-500 text-black" : "bg-neutral-900 hover:bg-neutral-800 "} font-bold rounded-full`}
-          >
-            {added ? "Dodato u korpu" : "Kupi"}
-          </button>
+          <div className="w-full flex justify-center">
+            <button
+              onClick={() => {
+                if (
+                  [
+                    "shirts",
+                    "sweatshirts",
+                    "sets",
+                    "pants",
+                    "shoeses",
+                    "jackets",
+                  ].includes(product.type) &&
+                  selectedSize !== ""
+                ) {
+                  addToCart();
+                  Timer();
+                }
+                if (
+                  [
+                    "shirts",
+                    "sweatshirts",
+                    "sets",
+                    "pants",
+                    "shoeses",
+                    "jackets",
+                  ].includes(product.type) &&
+                  selectedSize === ""
+                ) {
+                  setSizeCheck(true);
+                  SizeTimer();
+                }
+                if (
+                  ["fragrance", "vapes", "headphones"].includes(product.type) &&
+                  selectedSize === ""
+                ) {
+                  addToCart();
+                  Timer();
+                }
+              }}
+              className={`text-center w-7/12 lg:w-9/12 flex justify-center items-center px-2 py-3 transition-all duration-150 text-xl ${added ? "bg-green-400 hover:bg-green-500 text-black" : "bg-neutral-900 hover:bg-neutral-800 "} font-bold rounded-full`}
+            >
+              {added ? "Dodato u korpu" : "Kupi"}
+            </button>
+          </div>
         </div>
       </div>
       {selectedSize === "" ?? <div></div>}

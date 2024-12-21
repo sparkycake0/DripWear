@@ -10,7 +10,7 @@ export default function Footer() {
   const pathname = usePathname();
   return (
     <footer
-      className={`bg-neutral-900 pt-4 flex-col gap-4 items-center mt-20 ${pathname !== "/login" ? "flex" : "hidden"}`}
+      className={`bg-neutral-900 absolute -bottom-full left-0 right-0 pt-4 flex-col gap-4 items-center mt-20 ${pathname !== "/login" ? "flex" : "hidden"}`}
     >
       <div className="flex flex-col items-center gap-6">
         <div className="*:bg-white *:w-12 flex gap-12 justify-center">
